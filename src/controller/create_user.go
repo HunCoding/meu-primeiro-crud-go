@@ -7,6 +7,7 @@ import (
 	"github.com/HunCoding/meu-primeiro-crud-go/src/configuration/validation"
 	"github.com/HunCoding/meu-primeiro-crud-go/src/controller/model/request"
 	"github.com/HunCoding/meu-primeiro-crud-go/src/model"
+	"github.com/HunCoding/meu-primeiro-crud-go/src/model/service"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -32,7 +33,8 @@ func CreateUser(c *gin.Context) {
 		userRequest.Name,
 		userRequest.Age,
 	)
-	if err := domain.CreateUser(); err != nil {
+	service := service.NewUserDomainService()
+	if err := service.CreateUser(domain); err != nil {
 		c.JSON(err.Code, err)
 		return
 	}
