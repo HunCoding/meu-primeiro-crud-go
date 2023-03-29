@@ -14,8 +14,12 @@ func (ud *userDomainService) CreateUserServices(
 	logger.Info("Init createUser model.",
 		zap.String("journey", "createUser"))
 
-	userDomain.EncryptPassword()
+	user, _ := ud.FindUserByEmailServices(userDomain.GetEmail())
+	if user != nil {
+		return nil, rest_err.NewBadRequestError("Email is already registered in another account")
+	}
 
+	userDomain.EncryptPassword()
 	userDomainRepository, err := ud.userRepository.CreateUser(userDomain)
 	if err != nil {
 		logger.Error("Error trying to call repository",
