@@ -1,0 +1,41 @@
+// Buscar usuário no banco de dados por email
+GET http://localhost:8080/getUserById/otavioteste@gmail.com
+Accept: application/json
+###
+
+// Criar um usuario dentro do banco de dados
+POST http://localhost:8080/createUser
+Content-Type: application/json
+
+{
+  "email": "huncoding@gmail.com",
+  "age": 20,
+  "password": "huncoding#!@!dwdw",
+  "name": "Huncoding"
+}
+###
+
+// Atualiza um usuario já criado dentro do banco de dados
+PUT http://localhost:8080/updateUser/6423852a15cd25e0b80f8535
+Content-Type: application/json
+
+{
+  "email": "otavio20313131@test.com",
+  "age": 90
+}
+###
+
+// Apaga um usuário do banco de dados dado um userId
+DELETE http://localhost:8080/deleteUser/6423852a15cd25e0b80f8535
+Accept: application/json
+###
+
+// Realiza o login do usuário com email e senha
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+    "email": "huncoding@gmail.com",
+    "password": "huncoding#!@!dwdw"
+}
+###
