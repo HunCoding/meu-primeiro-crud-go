@@ -1,6 +1,13 @@
 // Buscar usuário no banco de dados por email
-GET http://localhost:8080/getUserByEmail/otavioteste@gmail.com
+GET http://localhost:8080/getUserByEmail/huncoding@gmail.com
 Accept: application/json
+Authorization: eyJhbGciOiJfdsfdIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZ2UiOjIwLCJlbWFpbCI6Imh1bmNvZGluZ0BnbWFpbC5jb20iLCJleHAiOjE2ODU4ODYxNzAsImlkIjoiNjQ3YjNmYzljNWJlNTBhNWYyZTQ4MDA4IiwibmFtZSI6Ikh1bmNvZGluZyJ9.2Srd2A64VJZjQCz9XWS15R3-DXU6Ge6RQ7sSW2JbxwI
+###
+
+// Buscar usuário no banco de dados por email
+GET http://localhost:8080/getUserById/647b3fc9c5be50a5f2e48008
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZ2UiOjIwLCJlbWFpbCI6Imh1bmNvZGluZ0BnbWFpbC5jb20iLCJleHAiOjE2ODU4ODYzMzgsImlkIjoiNjQ3YjNmYzljNWJlNTBhNWYyZTQ4MDA4IiwibmFtZSI6Ikh1bmNvZGluZyJ9.sodM2pvvNqlrvEY4CSFcuTaBcEgfIvxxRrb4BHmGNkk
 ###
 
 // Criar um usuario dentro do banco de dados

@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"fmt"
+	"github.com/HunCoding/meu-primeiro-crud-go/src/model"
 	"net/http"
 	"net/mail"
 
@@ -18,6 +20,14 @@ func (uc *userControllerInterface) FindUserByID(c *gin.Context) {
 	)
 
 	userId := c.Param("userId")
+
+	user, err := model.VerifyToken(c.Request.Header.Get("Authorization"))
+	if err != nil {
+		c.JSON(err.Code, err)
+		return
+	}
+
+	logger.Info(fmt.Sprintf("User authenticated: %#v", user))
 
 	if _, err := primitive.ObjectIDFromHex(userId); err != nil {
 		logger.Error("Error trying to validate userId",
@@ -54,6 +64,14 @@ func (uc *userControllerInterface) FindUserByEmail(c *gin.Context) {
 	logger.Info("Init findUserByEmail controller",
 		zap.String("journey", "findUserByEmail"),
 	)
+
+	user, err := model.VerifyToken(c.Request.Header.Get("Authorization"))
+	if err != nil {
+		c.JSON(err.Code, err)
+		return
+	}
+
+	logger.Info(fmt.Sprintf("User authenticated: %#v", user))
 
 	userEmail := c.Param("userEmail")
 
