@@ -11,6 +11,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/stretchr/testify v1.8.0
 	go.mongodb.org/mongo-driver v1.11.1
+	go.uber.org/mock v0.1.0
 	go.uber.org/zap v1.24.0
 )
 
