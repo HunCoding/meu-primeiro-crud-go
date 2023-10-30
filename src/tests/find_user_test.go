@@ -47,7 +47,7 @@ func TestMain(m *testing.M) {
 
 func TestFindUserByEmail(t *testing.T) {
 
-	t.Run("user_not_found_with_this_email", func(t *testing.T) {
+	t.Run("user_not_found_with_this__email", func(t *testing.T) {
 		recorder := httptest.NewRecorder()
 		ctx := GetTestGinContext(recorder)
 
