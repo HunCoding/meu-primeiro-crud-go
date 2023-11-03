@@ -2,29 +2,40 @@ package rest_err
 
 import "net/http"
 
+// RestErr represents the error object.
+// @Summary Error information
+// @Description Structure for describing why the error occurred
 type RestErr struct {
-	Message string   `json:"message"`
-	Err     string   `json:"error"`
-	Code    int      `json:"code"`
-	Causes  []Causes `json:"causes"`
+	// Error message.
+	Message string `json:"message" example:"error trying to process request"`
+
+	// Error description.
+	Err string `json:"error" example:"internal_server_error"`
+
+	// Error code.
+	Code int `json:"code" example:"500"`
+
+	// Error causes.
+	Causes []Causes `json:"causes"`
 }
 
+// Causes represents the error causes.
+// @Summary Error Causes
+// @Description Structure representing the causes of an error.
 type Causes struct {
-	Field   string `json:"field"`
-	Message string `json:"message"`
+	// Field associated with the error cause.
+	// @json
+	// @jsonTag field
+	Field string `json:"field" example:"name"`
+
+	// Error message describing the cause.
+	// @json
+	// @jsonTag message
+	Message string `json:"message" example:"name is required"`
 }
 
 func (r *RestErr) Error() string {
 	return r.Message
-}
-
-func NewRestErr(message, err string, code int, causes []Causes) *RestErr {
-	return &RestErr{
-		Message: message,
-		Err:     err,
-		Code:    code,
-		Causes:  causes,
-	}
 }
 
 func NewBadRequestError(message string) *RestErr {

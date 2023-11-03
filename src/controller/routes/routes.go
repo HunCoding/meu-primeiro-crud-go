@@ -4,6 +4,9 @@ import (
 	"github.com/HunCoding/meu-primeiro-crud-go/src/controller"
 	"github.com/HunCoding/meu-primeiro-crud-go/src/model"
 	"github.com/gin-gonic/gin"
+
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func InitRoutes(
@@ -17,4 +20,6 @@ func InitRoutes(
 	r.DELETE("/deleteUser/:userId", model.VerifyTokenMiddleware, userController.DeleteUser)
 
 	r.POST("/login", userController.LoginUser)
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 }

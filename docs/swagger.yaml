@@ -1,0 +1,365 @@
+basePath: /
+definitions:
+  request.UserLogin:
+    description: Structure containing the necessary fields for user login.
+    properties:
+      email:
+        description: User's email (required and must be a valid email address).
+        example: test@test.com
+        type: string
+      password:
+        description: 'User''s password (required, minimum of 6 characters, and must
+          contain at least one of the characters: !@#$%*).'
+        example: password#@#@!2121
+        minLength: 6
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  request.UserRequest:
+    description: Structure containing the required fields for creating a new user.
+    properties:
+      age:
+        description: |-
+          User's age (required, must be between 1 and 140).
+          @json
+          @jsonTag age
+          @jsonExample 30
+        example: 30
+        maximum: 140
+        minimum: 1
+        type: integer
+      email:
+        description: |-
+          User's email (required and must be a valid email address).
+          Example: user@example.com
+          @json
+          @jsonTag email
+          @jsonExample user@example.com
+          @binding required,email
+        example: test@test.com
+        type: string
+      name:
+        description: |-
+          User's name (required, minimum of 4 characters, maximum of 100 characters).
+          Example: John Doe
+          @json
+          @jsonTag name
+          @jsonExample John Doe
+          @binding required,min=4,max=100
+        example: John Doe
+        maxLength: 100
+        minLength: 4
+        type: string
+      password:
+        description: |-
+          User's password (required, minimum of 6 characters, and must contain at least one of the characters: !@#$%*).
+          @json
+          @jsonTag password
+          @jsonExample P@ssw0rd!
+          @binding required,min=6,containsany=!@#$%*
+        example: password#@#@!2121
+        minLength: 6
+        type: string
+    required:
+    - age
+    - email
+    - name
+    - password
+    type: object
+  request.UserUpdateRequest:
+    properties:
+      age:
+        description: |-
+          User's age (required, must be between 1 and 140).
+          @json
+          @jsonTag age
+          @jsonExample 30
+          @binding required,min=1,max=140
+        example: 30
+        maximum: 140
+        minimum: 1
+        type: integer
+      name:
+        description: |-
+          User's name (required, minimum of 4 characters, maximum of 100 characters).
+          Example: John Doe
+          @json
+          @jsonTag name
+          @jsonExample John Doe
+          @binding required,min=4,max=100
+        example: John Doe
+        maxLength: 100
+        minLength: 4
+        type: string
+    required:
+    - age
+    - name
+    type: object
+  response.UserResponse:
+    properties:
+      age:
+        example: 30
+        type: integer
+      email:
+        example: test@test.com
+        type: string
+      id:
+        example: 82bdd399-321b-41d8-8b40-9a0116db9e92
+        type: string
+      name:
+        example: John Doe
+        type: string
+    type: object
+  rest_err.Causes:
+    description: Structure representing the causes of an error.
+    properties:
+      field:
+        description: |-
+          Field associated with the error cause.
+          @json
+          @jsonTag field
+        example: name
+        type: string
+      message:
+        description: |-
+          Error message describing the cause.
+          @json
+          @jsonTag message
+        example: name is required
+        type: string
+    type: object
+  rest_err.RestErr:
+    description: Structure for describing why the error occurred
+    properties:
+      causes:
+        description: Error causes.
+        items:
+          $ref: '#/definitions/rest_err.Causes'
+        type: array
+      code:
+        description: Error code.
+        example: 500
+        type: integer
+      error:
+        description: Error description.
+        example: internal_server_error
+        type: string
+      message:
+        description: Error message.
+        example: error trying to process request
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API for crud operations on users
+  title: Meu Primeiro CRUD em Go | HunCoding
+  version: "1.0"
+paths:
+  /createUser:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user with the provided user information
+      parameters:
+      - description: User information for registration
+        in: body
+        name: userRequest
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest_err.RestErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest_err.RestErr'
+      summary: Create a new user
+      tags:
+      - Users
+  /deleteUser/{userId}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user based on the ID provided as a parameter.
+      parameters:
+      - description: ID of the user to be deleted
+        in: path
+        name: userId
+        required: true
+        type: string
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest_err.RestErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest_err.RestErr'
+      summary: Delete User
+      tags:
+      - Users
+  /getUserByEmail/{userEmail}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves user details based on the email provided as a parameter.
+      parameters:
+      - description: Email of the user to be retrieved
+        in: path
+        name: userEmail
+        required: true
+        type: string
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User information retrieved successfully
+          schema:
+            $ref: '#/definitions/response.UserResponse'
+        "400":
+          description: 'Error: Invalid user ID'
+          schema:
+            $ref: '#/definitions/rest_err.RestErr'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/rest_err.RestErr'
+      summary: Find User by Email
+      tags:
+      - Users
+  /getUserById/{userId}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves user details based on the user ID provided as a parameter.
+      parameters:
+      - description: ID of the user to be retrieved
+        in: path
+        name: userId
+        required: true
+        type: string
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User information retrieved successfully
+          schema:
+            $ref: '#/definitions/response.UserResponse'
+        "400":
+          description: 'Error: Invalid user ID'
+          schema:
+            $ref: '#/definitions/rest_err.RestErr'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/rest_err.RestErr'
+      summary: Find User by ID
+      tags:
+      - Users
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Allows a user to log in and receive an authentication token.
+      parameters:
+      - description: User login credentials
+        in: body
+        name: userLogin
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Login successful, authentication token provided
+          headers:
+            Authorization:
+              description: Authentication token
+              type: string
+          schema:
+            $ref: '#/definitions/response.UserResponse'
+        "403":
+          description: 'Error: Invalid login credentials'
+          schema:
+            $ref: '#/definitions/rest_err.RestErr'
+      summary: User Login
+      tags:
+      - Authentication
+  /updateUser/{userId}:
+    put:
+      consumes:
+      - application/json
+      description: Updates user details based on the ID provided as a parameter.
+      parameters:
+      - description: ID of the user to be updated
+        in: path
+        name: userId
+        required: true
+        type: string
+      - description: User information for update
+        in: body
+        name: userRequest
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserUpdateRequest'
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest_err.RestErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest_err.RestErr'
+      summary: Update User
+      tags:
+      - Users
+schemes:
+- http
+swagger: "2.0"
