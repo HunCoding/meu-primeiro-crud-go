@@ -1,10 +1,10 @@
-# MyFirstCRUD in Go
+# MeuPrimeiroCRUD em Go
 
-This is a comprehensive guide for the "MyFirstCRUD" project in Go, an example application that implements the basic CRUD (Create, Read, Update, Delete) operations for users. The project includes a Dockerfile to facilitate running it in containers.
+This is a comprehensive guide for the "MeuPrimeiroCRUD em Go" project in Go, an example application that implements the basic CRUD (Create, Read, Update, Delete) operations for users. The project includes a Dockerfile to facilitate running it in containers.
 
 ## Information
 
-- **Title**: My First CRUD in Go | HunCoding
+- **Title**: MeuPrimeiroCRUD em Go | HunCoding
 - **Version**: 1.0
 - **Host**: localhost:8080
 
@@ -22,13 +22,13 @@ Follow the steps below to install the project in your development environment:
 1. **Clone the repository:**
 
    ```
-   git clone https://github.com/HunCoding/my-first-crud-go.git
+   git clone https://github.com/HunCoding/meu-primeiro-crud-go.git
    ```
 
 2. **Navigate to the project directory:**
 
    ```
-   cd my-first-crud-go
+   cd meu-primeiro-crud-go
    ```
 
 3. **Build the application using Docker Compose:**
@@ -39,10 +39,10 @@ Follow the steps below to install the project in your development environment:
 
 ## Running the Application
 
-After installation, you can run the MyFirstCRUD Go application with the following command (if you want to run it directly with Golang):
+After installation, you can run the MeuPrimeiroCRUD em Go application with the following command (if you want to run it directly with Golang):
 
 ```
-docker container run --name myfirstcrudgoDB -p 27017:27017 -d mongo
+docker container run --name meuprimeirocrudgo -p 27017:27017 -d mongo
 
 go run main.go
 ```
@@ -53,7 +53,7 @@ The application will be accessible at `http://localhost:8080`.
 
 If you prefer, after running the project, visit: http://localhost:8080/swagger/index.html# to see and test all the route contracts.
 
-The MyFirstCRUD application offers REST endpoints for creating, listing, updating, and deleting users. You can use tools like [curl](https://curl.se/) or [Postman](https://www.postman.com/) to test the endpoints. Here are some `curl` command examples for testing the endpoints:
+The MeuPrimeiroCRUD em Go application offers REST endpoints for creating, listing, updating, and deleting users. You can use tools like [curl](https://curl.se/) or [Postman](https://www.postman.com/) to test the endpoints. Here are some `curl` command examples for testing the endpoints:
 
 - **Create a user:**
 
@@ -183,7 +183,7 @@ The API offers the following endpoints:
 
 ## Contributing
 
-If you wish to contribute to the MyFirstCRUD project in Go, feel free to submit pull requests or report issues on the [official repository](https://github.com/HunCoding/my-first-crud-go.git).
+If you wish to contribute to the MeuPrimeiroCRUD em Go project in Go, feel free to submit pull requests or report issues on the [official repository](https://github.com/HunCoding/meu-primeiro-crud-go.git).
 
 ## License
 
@@ -191,4 +191,4 @@ This project is distributed under the MIT license. Please refer to the LICENSE f
 
 ---
 
-We hope this Swagger documentation has been helpful in understanding and interacting with the API of the MyFirstCRUD project in Go. If you have any questions or need additional support, please don't hesitate to reach out. Enjoy using the API!
+We hope this Swagger documentation has been helpful in understanding and interacting with the API of the MeuPrimeiroCRUD em Go project in Go. If you have any questions or need additional support, please don't hesitate to reach out. Enjoy using the API!
