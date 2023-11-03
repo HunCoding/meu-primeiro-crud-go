@@ -14,8 +14,15 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on \
 
 FROM golang:1.19-alpine3.15 as runner
 
-COPY --from=BUILDER /app/meuprimeirocrudgo .
+RUN adduser -D huncoding
+
+COPY --from=BUILDER /app/meuprimeirocrudgo /app/meuprimeirocrudgo
+
+RUN chown -R huncoding:huncoding /app
+RUN chmod +x /app/meuprimeirocrudgo
 
 EXPOSE 8080
+
+USER huncoding
 
 CMD ["./meuprimeirocrudgo"]
