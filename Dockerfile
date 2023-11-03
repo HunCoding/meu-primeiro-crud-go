@@ -1,5 +1,6 @@
 FROM golang:1.19 AS BUILDER
 
+
 WORKDIR /app
 COPY src src
 COPY docs docs
